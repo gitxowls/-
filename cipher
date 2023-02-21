@@ -25,18 +25,23 @@ class CipherOld(ClassBasic):
     def __init__(self, cipher_name):
         self.cipher_name = cipher_name
         super(CipherOld, self).__init__()
+
     def get(self, cmd):
         return self.get_value(cmd)
 
     def set_from_value(self, cmd, value):
         """Set value from input by value
-        
-        Parameter
-        -----------
-        k(int): key
-        p(int): 
-        c(int): cipher 암호
 
+        Parameter
+        ----------
+            cmd(str) : command, 1 of [k, p, c]
+            value(str, int) : string or integer
+
+        Value
+        -----------
+            k(int) : key
+            p(str) : decrypted cipher, normal sentence
+            c(str) : cipher, will be decrypted
         """
         if cmd == 'k': self.k = value
         elif cmd == 'p': self.p = value
@@ -44,11 +49,15 @@ class CipherOld(ClassBasic):
 
     def set_from_file(self, cmd, value):
         """ Set file from directory
-             
         Parameter
+        ----------
+            cmd(str) : command, 1 of [k, p, c]
+            value(str, int) : string or integer
+
+        Value
         -----------
-        testFile: open value file
-        readFile(str): string of value File
+            testFile (file_pointer): open 'value' file
+            readFile(str): string of 'value' File
 
         """
         testFile = open(value, 'r')
@@ -62,11 +71,14 @@ class CipherOld(ClassBasic):
 
     def decrypt(self):
         """ Decrypt cipher file
-        
-        Parameter
+        Value
         ----------
-        ans(str): empty string
-        
+            ans (str): empty string
+
+        Return
+        ----------
+            1. (str) : decrypted cipher
+
         """
         ans = ''
         for x in self.c:
