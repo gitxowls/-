@@ -1,0 +1,52 @@
+class ClassBasic():
+    def __init__(self):
+        self.k = None
+        self.p = None
+        self.c = None
+
+    def get_value(self, cmd):
+        if cmd == 'k': return self.k
+        elif cmd == 'p': return self.p
+        elif cmd == 'c': return self.c
+
+
+class CipherOld(ClassBasic):
+    """ This class is defined to make old cipher
+
+    Parameter
+    -------------
+        cipher_name(str) : name of cipher
+
+    Value
+    -------------
+
+    """
+
+    def __init__(self, cipher_name):
+        self.cipher_name = cipher_name
+        super(CipherOld, self).__init__()
+    def get(self, cmd):
+        return self.get_value(cmd)
+
+    def set_from_value(self, cmd, value):
+        """Set value from input by value
+        """
+        if cmd == 'k': self.k = value
+        elif cmd == 'p': self.p = value
+        elif cmd == 'c': self.c = value
+
+    def set_from_file(self):
+        """ Set file from directory
+        """
+
+class CipherNew():
+
+    def decrypt(cipher, key):
+        return "".join([chr(65 + (ord(x) - 65 - key) % 26) for x in cipher])
+
+if __name__ == "__main__":
+    cipher = CipherOld('caesar')
+    cipher.set_from_file('c', 'cipher.txt')
+    cipher.set_from_value('k', 3) #집어넣는 값을 어떤 값으로 설정할 것인가?
+    print(cipher.cipher_name)
+    print(cipher.k)
