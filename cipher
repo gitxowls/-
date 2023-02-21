@@ -30,23 +30,54 @@ class CipherOld(ClassBasic):
 
     def set_from_value(self, cmd, value):
         """Set value from input by value
+        
+        Parameter
+        -----------
+        k(int): key
+        p(int): 
+        c(int): cipher 암호
+
         """
         if cmd == 'k': self.k = value
         elif cmd == 'p': self.p = value
         elif cmd == 'c': self.c = value
 
-    def set_from_file(self):
+    def set_from_file(self, cmd, value):
         """ Set file from directory
+             
+        Parameter
+        -----------
+        testFile: open value file
+        readFile(str): string of value File
+
         """
+        testFile = open(value, 'r')
+        readFile = testFile.readline()
+        #print(readFile)
 
-class CipherNew():
+        if cmd == 'k': self.k = readFile
+        elif cmd == 'p': self.p = readFile
+        elif cmd == 'c': self.c = readFile
 
-    def decrypt(cipher, key):
-        return "".join([chr(65 + (ord(x) - 65 - key) % 26) for x in cipher])
+
+    def decrypt(self):
+        """ Decrypt cipher file
+        
+        Parameter
+        ----------
+        ans(str): empty string
+        
+        """
+        ans = ''
+        for x in self.c:
+            if x == " " or x == ',' or x == '.':
+                ans += x
+            else:
+                ans += (chr(65 + (ord(x) - 65 - self.k) % 26))
+        return ans
 
 if __name__ == "__main__":
     cipher = CipherOld('caesar')
     cipher.set_from_file('c', 'cipher.txt')
     cipher.set_from_value('k', 3) #집어넣는 값을 어떤 값으로 설정할 것인가?
-    print(cipher.cipher_name)
-    print(cipher.k)
+    print(cipher.decrypt())
